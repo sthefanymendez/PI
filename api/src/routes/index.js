@@ -15,26 +15,36 @@ const router = Router();
 
 // })
 router.get('/pokemons', async (req, res) => {
-    // const database = await Pokemon.findAll()
-
-    const api = []
+    const pokemons = []
 
     for (let i = 1; i <= 40; i++) {
         const pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
-        let { 
-            id, 
-            name, 
-            sprites: { other: { home: { front_default: image } } }, 
-            types, 
-        } = pokemon.data
 
-        // types = types.map(r => r.type.name)
-        
-        api.push({ id, name, image, types })
-    };
+        pokemons.push({
+            id: pokemon.data.id,
+            name: pokemon.data.name,
+            image: pokemon.data.sprites.other.home.front_default,
+            types: pokemon.data.types.map(r => {
+                return { name: r.type.name }
+            })
+        })
+    }
 
-    res.send(api)
-    // res.send(api.data) 
+    const database = await Pokemon.findAll({
+        include: [
+            { model: Type, attributes: ["name"], through: { attributes: [] } }
+        ]
+    })
+
+    database.map(r => pokemons.push({
+        id: r.id,
+        name: r.name,
+        types: r.types.map(r => {
+            return { name: r.name }
+        })
+    }))
+
+    res.send(pokemons)
 });
 
 router.post('/pokemon', async (req, res) => {
@@ -54,7 +64,7 @@ router.post('/pokemon', async (req, res) => {
 
     // console.log(req.body)
 
-    // pokemon.addType(type);
+    pokemon.addType(type);
     // console.log(type)
 
     // Type.create( { name: "water" })
