@@ -1,4 +1,4 @@
-const { Router } = require('express');
+const { Router, query } = require('express');
 const { Sequelize } = require('sequelize');
 const axios = require('axios')
 const Op = Sequelize.Op;
@@ -14,35 +14,74 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 
 ////////////////////////////////////////////////////// ~ GET /pokemons - 1
+/////////////////////////////////////////// ~ GET /pokemons?name="..." - 3
 router.get('/pokemons', async (req, res) => {
-    const pokemons = []
+    let pokemons = []
 
-    for (let i = 1; i <= 40; i++) {
-        const pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
+    if (!req.query.name) {
+        for (let i = 1; i <= 40; i++) {
+            const pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
 
-        pokemons.push({
-            id: pokemon.data.id,
-            name: pokemon.data.name,
-            image: pokemon.data.sprites.other.home.front_default,
-            types: pokemon.data.types.map(r => {
-                return { name: r.type.name }
+            pokemons.push({
+                id: pokemon.data.id,
+                name: pokemon.data.name,
+                image: pokemon.data.sprites.other.home.front_default,
+                types: pokemon.data.types.map(r => {
+                    return { name: r.type.name }
+                })
             })
+        }
+
+        const database = await Pokemon.findAll({
+            include: [
+                { model: Type, attributes: ["name"], through: { attributes: [] } }
+            ]
         })
+
+        database.map(r => pokemons.push({
+            id: r.id,
+            name: r.name,
+            types: r.types.map(r => {
+                return { name: r.name }
+            })
+        }))
+    } else {
+        const database = await Pokemon.findAll({
+            where: { name: { [Op.iLike]: req.query.name } },
+            include: [
+                { model: Type, attributes: ["name"], through: { attributes: [] } }
+            ]
+        })
+
+        if (database.length > 0) {
+            pokemons.push({
+                id: database[0].id,
+                name: database[0].name,
+                types: database[0].types.map(r => {
+                    return { name: r.name }
+                })
+            })
+        }
+
+        try {
+            const api = await axios.get('https://pokeapi.co/api/v2/pokemon/' + req.query.name)
+
+            if (api && database.length === 0) {
+                pokemons.push({
+                    id: api.data.id,
+                    name: api.data.name,
+                    image: api.data.sprites.other.home.front_default,
+                    types: api.data.types.map(r => {
+                        return { name: r.type.name }
+                    })
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-    const database = await Pokemon.findAll({
-        include: [
-            { model: Type, attributes: ["name"], through: { attributes: [] } }
-        ]
-    })
-
-    database.map(r => pokemons.push({
-        id: r.id,
-        name: r.name,
-        types: r.types.map(r => {
-            return { name: r.name }
-        })
-    }))
+    if (pokemons.length === 0) pokemons = { message: 'not found pokemons' }
 
     res.send(pokemons)
 })
@@ -81,7 +120,7 @@ router.get('/pokemons/:idPokemon', async (req, res) => {
     res.send(pokemon)
 })
 
-///////////////////////////////////////////////////// ~ POST /pokemons - 3
+///////////////////////////////////////////////////// ~ POST /pokemons - 4
 router.post('/pokemons', async (req, res) => {
     // Pokemon.create({ name: 'xbcnxc' })
     // await fetch('https://pokeapi.co/api/v2/pokemon')
@@ -92,8 +131,7 @@ router.post('/pokemons', async (req, res) => {
 
     // if (!name) return res.status(422).send('this field is required');
 
-    // const pokemon = await Pokemon.create({ name, hp, strength, defense, speed, height, weight });
-
+    const pokemon = await Pokemon.create({ name, hp, strength, defense, speed, height, weight });
 
     const type = await Type.findAll({ where: { name: { [Op.in]: types } } });
 
