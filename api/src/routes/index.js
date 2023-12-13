@@ -13,77 +13,95 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
+const getPokemonsApi = async () => {
+    const pokemons = []
+
+    for (let i = 1; i <= 40; i++) {
+        const pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
+
+        pokemons.push({
+            id: pokemon.data.id,
+            name: pokemon.data.name,
+            image: pokemon.data.sprites.other.home.front_default,
+            types: pokemon.data.types.map(r => {
+                return { name: r.type.name }
+            })
+        })
+    }
+
+    return pokemons
+}
+
+const getPokemonsDatabase = async () => {
+    const pokemons = []
+
+    const database = await Pokemon.findAll({
+        include: [
+            { model: Type, attributes: ["name"], through: { attributes: [] } }
+        ]
+    })
+
+    database.map(r => pokemons.push({
+        id: r.id,
+        name: r.name,
+        types: r.types.map(r => {
+            return { name: r.name }
+        })
+    }))
+
+    return pokemons
+}
+
+const getPokemons = async () => {
+    const api = await getPokemonsApi()
+    const database = await getPokemonsDatabase()
+
+    return [...api, ...database]
+}
+
+const getPokemonApi = async (name) => {
+    const api = await axios.get('https://pokeapi.co/api/v2/pokemon/' + name)
+    
+    return [{
+        id: api.data.id,
+        name: api.data.name,
+        image: api.data.sprites.other.home.front_default,
+        types: api.data.types.map(r => {
+            return { name: r.type.name }
+        })
+    }]
+}
+
+const getPokemonDatabase = async (name) => {
+    const pokemon = await Pokemon.findAll({
+        where: { name: { [Op.iLike]: name } },
+        include: [
+            { model: Type, attributes: ["name"], through: { attributes: [] } }
+        ]
+    })
+
+    if (pokemon.length > 0) return [{
+        id: pokemon[0].id,
+        name: pokemon[0].name,
+        types: pokemon[0].types.map(r => {
+            return { name: r.name }
+        })
+    }]
+
+    return []
+}
+
+const getPokemon = async (name) => {
+    const database = await getPokemonDatabase(name)
+    if (database.length > 0) return database
+    return await getPokemonApi(name)
+}
+
 ////////////////////////////////////////////////////// ~ GET /pokemons - 1
 /////////////////////////////////////////// ~ GET /pokemons?name="..." - 3
 router.get('/pokemons', async (req, res) => {
-    let pokemons = []
-
-    if (!req.query.name) {
-        for (let i = 1; i <= 40; i++) {
-            const pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
-
-            pokemons.push({
-                id: pokemon.data.id,
-                name: pokemon.data.name,
-                image: pokemon.data.sprites.other.home.front_default,
-                types: pokemon.data.types.map(r => {
-                    return { name: r.type.name }
-                })
-            })
-        }
-
-        const database = await Pokemon.findAll({
-            include: [
-                { model: Type, attributes: ["name"], through: { attributes: [] } }
-            ]
-        })
-
-        database.map(r => pokemons.push({
-            id: r.id,
-            name: r.name,
-            types: r.types.map(r => {
-                return { name: r.name }
-            })
-        }))
-    } else {
-        const database = await Pokemon.findAll({
-            where: { name: { [Op.iLike]: req.query.name } },
-            include: [
-                { model: Type, attributes: ["name"], through: { attributes: [] } }
-            ]
-        })
-
-        if (database.length > 0) {
-            pokemons.push({
-                id: database[0].id,
-                name: database[0].name,
-                types: database[0].types.map(r => {
-                    return { name: r.name }
-                })
-            })
-        }
-
-        try {
-            const api = await axios.get('https://pokeapi.co/api/v2/pokemon/' + req.query.name)
-
-            if (api && database.length === 0) {
-                pokemons.push({
-                    id: api.data.id,
-                    name: api.data.name,
-                    image: api.data.sprites.other.home.front_default,
-                    types: api.data.types.map(r => {
-                        return { name: r.type.name }
-                    })
-                })
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    if (pokemons.length === 0) pokemons = { message: 'not found pokemons' }
-
-    res.send(pokemons)
+    if (req.query.name) return res.send(await getPokemon(req.query.name))
+    return res.send(await getPokemons())
 })
 
 ////////////////////////////////////////// ~ GET /pokemons/{idPokemon} - 2
@@ -122,14 +140,10 @@ router.get('/pokemons/:idPokemon', async (req, res) => {
 
 ///////////////////////////////////////////////////// ~ POST /pokemons - 4
 router.post('/pokemons', async (req, res) => {
-    // Pokemon.create({ name: 'xbcnxc' })
-    // await fetch('https://pokeapi.co/api/v2/pokemon')
-    //     .then(response => response.json())
-    //     .then(data => res.json(data))
 
     const { name, hp, strength, defense, speed, height, weight, types } = req.body;
 
-    // if (!name) return res.status(422).send('this field is required');
+    if (!name) res.status(422).send('this field is required');
 
     const pokemon = await Pokemon.create({ name, hp, strength, defense, speed, height, weight });
 
