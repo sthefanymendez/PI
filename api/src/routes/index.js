@@ -105,9 +105,7 @@ router.get('/pokemons', async (req, res) => {
 })
 
 ////////////////////////////////////////// ~ GET /pokemons/{idPokemon} - 2
-router.get('/pokemons/:idPokemon', async (req, res) => {
-    const { idPokemon } = req.params
-
+const getPokemonByIdApi = async (idPokemon) => {
     const api = await axios.get('https://pokeapi.co/api/v2/pokemon/' + idPokemon)
 
     const stats = {};
@@ -118,7 +116,7 @@ router.get('/pokemons/:idPokemon', async (req, res) => {
         }
     })
 
-    const pokemon = {
+    return {
         id: api.data.id,
         name: api.data.name,
         image: api.data.sprites.other.home.front_default,
@@ -129,23 +127,59 @@ router.get('/pokemons/:idPokemon', async (req, res) => {
         }),
         hp: stats.hp,
         attack: stats.attack,
+        strength: api.strength,
         defense: stats.defense,
         speed: stats.speed,
         height: api.data.height,
         weight: api.data.weight,
     }
+}
 
-    res.send(pokemon)
+const getPokemonByIdDatabase = async (idPokemon) => {
+    const pokemon = await Pokemon.findByPk(idPokemon, {
+        include: [
+            { model: Type, attributes: ["name"], through: { attributes: [] } }
+        ]
+    })
+    
+    if (pokemon) return {
+        id: pokemon.id,
+        name: pokemon.name,
+        types: pokemon.types.map(r => {
+            return {
+                name: r.name
+            }
+        }),
+        hp: pokemon.hp,
+        attack: pokemon.attack,
+        strength: pokemon.strength,
+        defense: pokemon.defense,
+        speed: pokemon.speed,
+        height: pokemon.height,
+        weight: pokemon.weight,
+    }
+
+    return null
+}
+
+router.get('/pokemons/:idPokemon', async (req, res) => {
+    const { idPokemon } = req.params
+
+    if (idPokemon.length === 36) return res.send(await getPokemonByIdDatabase(idPokemon))
+
+    const pokemon = await getPokemonByIdApi(idPokemon)
+
+    return res.send(pokemon)
 })
 
 ///////////////////////////////////////////////////// ~ POST /pokemons - 4
 router.post('/pokemons', async (req, res) => {
 
-    const { name, hp, strength, defense, speed, height, weight, types } = req.body;
+    const { name, hp, strength, attack, defense, speed, height, weight, types } = req.body;
 
     if (!name) res.status(422).send('this field is required');
 
-    const pokemon = await Pokemon.create({ name, hp, strength, defense, speed, height, weight });
+    const pokemon = await Pokemon.create({ name, hp, strength, attack, defense, speed, height, weight });
 
     const type = await Type.findAll({ where: { name: { [Op.in]: types } } });
 
