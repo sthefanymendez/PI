@@ -1,15 +1,11 @@
 const router = require("express").Router();
-const axios = require("axios");
-// const { get?, get? } = require("../control/types");
+const getTypes = require("../controls/types");
+
 
 router.get('/', async (req, res) => {
-    const api = await axios.get('https://pokeapi.co/api/v2/type');
+    const data = await getTypes();
 
-    const types = api.data.results.map(async r => await Type.findOrCreate({
-        where: { name: r.name }
-    }))
-
-    res.send(types)
-})
+    res.send(data)
+});
 
 module.exports = router;
