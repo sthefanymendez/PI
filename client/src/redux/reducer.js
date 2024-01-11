@@ -1,13 +1,13 @@
 let initialState = {
-  gamesLoad: [],
+  pokemonsLoad: [],
 };
 
 export function reducer(state = initialState, action) {
   switch (action.type) {
-    case 'GET_GAMES':
+    case 'GET_POKEMONS':
       return {
         ...state,
-        gamesLoad: action.payload,
+        pokemonsLoad: action.payload,
       };
       default: return state;
   };
