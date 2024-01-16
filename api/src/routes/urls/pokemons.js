@@ -7,7 +7,7 @@ const { getPokemons, getPokemon, getPokemonId } = require("../controls/pokemons"
 
 router.get('/', async (req, res) => {
     if (req.query.name) return res.send(await getPokemon(req.query.name))
-    return res.send(await getPokemons())
+    return res.send(await getPokemons(req.query.page))
 })
 
 router.get('/:idPokemon', async (req, res) => {

@@ -16,42 +16,25 @@ const Detail = (props) => {
     }, [dispatch, idPokemon])
 
     return (
-        <div>{detail ? (
+        <div>
+            <img src={detail.image} alt="not found" />
+            <h2>{detail.name}</h2>
             <div>
-                <img src={detail.image} alt="not found" />
-                <h2>{detail.name}</h2>
-
-                <ul>
-                    <strong>Attack:</strong> {detail.attack}
-                </ul>
-                <ul>
-                    <strong>HP:</strong> {detail.hp}
-                </ul>
-                <ul>
-                    <strong>Defense:</strong> {detail.defense}
-                </ul>
-                <ul>
-                    <strong>Speed:</strong> {detail.speed}
-                </ul>
-                <ul>
-                    <strong>Weight:</strong> {detail.weight}
-                </ul>
-                <ul>
-                    <strong>Height:</strong> {detail.height}
-                </ul>
-
-                <ul>
-                    <strong>Types:</strong>
-                    <ul>
-                        {detail.types.map((type, index) => (
-                            <li key={index}>{type.name}</li>
-                        ))}
-                    </ul>
-                </ul>
+                <p><strong>Attack:</strong> {detail.attack}</p>
+                <p><strong>HP:</strong> {detail.hp}</p>
+                <p><strong>Defense:</strong> {detail.defense}</p>
+                <p><strong>Speed:</strong> {detail.speed}</p>
+                <p><strong>Weight:</strong> {detail.weight}</p>
+                <p><strong>Height:</strong> {detail.height}</p>
             </div>
-            ) : (
-                <p>Loading...</p>
-            )}
+            <div>
+                <strong>Types:</strong>
+                {
+                    detail?.types?.map((type, index) => (
+                        <p key={index}>&#9679; {type.name}</p>
+                    ))
+                }
+            </div>
         </div>
     );
 };
@@ -80,3 +63,22 @@ export default Detail;
 // }
 
 // export default Detail
+// return (
+//     <card>
+//         {detail.name ? (
+//             <card className={style.card}>
+//                 <h1>{id}</h1>
+//                 <h1>{detail.name}</h1>
+//                 <img src={detail.image} alt="not found" />
+//                 <p>{detail.name}</p>
+//                 <p>{detail.attack}</p>
+//                 <p>{detail.hp}</p>
+//                 <p>{detail.defense}</p>
+//                 <p>{detail.speed}</p>
+//                 <p>{detail.weight}</p>
+//                 <p>{detail.height}</p>
+//             </card>) : <h1>cargando</h1>
+//         }
+//     </card>
+// )
+// }

@@ -1,21 +1,15 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getPokemons } from "../../redux/actions";
+import React from "react";
 
 import Cards from "../cards/Cards";
 import Search from "../search/Search";
+import Pager from "../Pager";
 
 const Home = () => {
-  const dispatch = useDispatch()
-  
-  useEffect(() => {
-    dispatch(getPokemons())
-  }, [dispatch])
-
   return (
-    <div>
+    <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
       <Search />
       <Cards />
+      <Pager />
     </div>
   );
 };

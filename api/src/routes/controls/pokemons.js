@@ -4,11 +4,18 @@ const Op = Sequelize.Op;
 
 const { Pokemon, Type } = require('../../db');
 
-const getPokemonsApi = async () => {
+const getPokemonsApi = async (page) => {
+    const pages = {
+        1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        2: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24],
+        3: [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36],
+        4: [37, 38, 39, 40]
+    }
+
     const pokemons = []
 
-    for (let i = 1; i <= 40; i++) {
-        const pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
+    for (let i = 0; i <= pages[page].length - 1; i++) {
+        const pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pages[page][i]}`)
 
         pokemons.push({
             id: pokemon.data.id,
@@ -43,11 +50,12 @@ const getPokemonsDatabase = async () => {
     return pokemons
 }
 
-const getPokemons = async () => {
-    const api = await getPokemonsApi()
-    const database = await getPokemonsDatabase()
+const getPokemons = async (page) => {
+    const api = await getPokemonsApi(page)
+    // const database = await getPokemonsDatabase()
 
-    return [...api, ...database]
+    // return [...api, ...database]
+    return [...api]
 }
 
 const getPokemonApi = async (name) => {

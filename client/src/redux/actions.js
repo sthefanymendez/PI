@@ -1,8 +1,9 @@
 const axios = require("axios");
 
-export const getPokemons = () => {
+export const getPokemons = (page) => {
     return async function(dispatch) {
-        const json = await axios.get('http://localhost:3001/pokemons');
+        const json = await axios.get('http://localhost:3001/pokemons?page=' + page);
+
         return dispatch({
             type: 'LOAD_POKEMONS',
             payload: json.data
@@ -30,6 +31,15 @@ export const getDetail = (idPokemon) => {
         return dispatch({
             type: 'LOAD_DETAIL',
             payload: json.data
+        })
+    }
+}
+
+export const changePage = (page) => {
+    return async function(dispatch) {
+        return dispatch({
+            type: 'CHANGE_PAGE',
+            payload: page
         })
     }
 }
