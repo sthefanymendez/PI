@@ -16,11 +16,16 @@ export function reducer(state = initialState, action) {
         ...state,
         detail: action.payload,
       };
-      case 'CHANGE_PAGE':
-        return {
-          ...state,
-          page: action.payload,
-        };
+    case 'CHANGE_PAGE':
+      return {
+        ...state,
+        page: action.payload,
+      };
+    case 'ADD_POKEMON':
+      return {
+        ...state,
+        addPokemon: action.payload,
+      };
     default: return state;
   };
 };
