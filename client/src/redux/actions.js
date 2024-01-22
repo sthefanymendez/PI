@@ -25,7 +25,6 @@ export const queryPokemon = (query) => {
 export const getDetail = (idPokemon) => {
     return async function (dispatch) {
         var json = await axios.get('http://localhost:3001/pokemons/' + idPokemon)
-
         return dispatch({
             type: 'LOAD_DETAIL',
             payload: json.data
@@ -41,12 +40,22 @@ export const changePage = (page) => {
         })
     }
 };
-
-export const addPokemons = (addPokemon) => {
+export const getTypes = () => {
     return async function (dispatch) {
+        const json = await axios.get('https://pokeapi.co/api/v2/type');
+
         return dispatch({
-            type: 'ADD_POKEMON',
-            payload: addPokemon
-        })
-    }
+            type: 'LOAD_TYPES',
+            payload: json.data
+        });
+    };
 };
+
+// export const addPokemons = (addPokemon) => {
+//     return async function (dispatch) {
+//         return dispatch({
+//             type: 'ADD_POKEMON',
+//             payload: addPokemon
+//         })
+//     }
+// };
