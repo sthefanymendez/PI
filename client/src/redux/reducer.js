@@ -1,7 +1,8 @@
 let initialState = {
   pokemons: [],
   detail: {},
-  page: 1
+  page: 1,
+  types: []
 };
 
 export function reducer(state = initialState, action) {
@@ -21,10 +22,10 @@ export function reducer(state = initialState, action) {
         ...state,
         page: action.payload,
       };
-    case 'ADD_POKEMON':
+    case 'LOAD_TYPES':
       return {
         ...state,
-        addPokemon: action.payload,
+        types: action.payload,
       };
     default: return state;
   };

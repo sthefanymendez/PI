@@ -25,6 +25,7 @@ export const queryPokemon = (query) => {
 export const getDetail = (idPokemon) => {
     return async function (dispatch) {
         var json = await axios.get('http://localhost:3001/pokemons/' + idPokemon)
+
         return dispatch({
             type: 'LOAD_DETAIL',
             payload: json.data
@@ -42,8 +43,8 @@ export const changePage = (page) => {
 };
 export const getTypes = () => {
     return async function (dispatch) {
-        const json = await axios.get('https://pokeapi.co/api/v2/type');
-
+        const json = await axios.get('http://localhost:3001/types');
+        
         return dispatch({
             type: 'LOAD_TYPES',
             payload: json.data

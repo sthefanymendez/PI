@@ -1,12 +1,54 @@
-import React from "react";
+import { React, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux"
+
+import { getTypes } from "../redux/actions";
 
 const Add = () => {
-    
+    const dispatch = useDispatch()
+    const types = useSelector(state => state.types)
+
+    const [pokemon, setPokemon] = useState({
+        name: "",
+        types: []
+    })
+
+    const click = (type) => {
+        if (!pokemon.types.includes(type)) return setPokemon({ types: [...pokemon.types, type] })
+        setPokemon({ types: pokemon.types.filter(r => r !== type) })
+    }
+
+    useEffect(() => {
+        dispatch(getTypes())
+    }, [dispatch])
 
     return (
-        <div>
-            hola
-            {/* <form>
+        <div style={{ textAlign: 'center' }}>
+            <div>
+                <p> Add your pokemon </p>
+                <br />
+                <br />
+                <label>Type</label>
+                <div>
+                    {
+                        types?.map((type, index) => {
+                            return (
+                                <button
+                                    key={index}
+                                    onClick={() => click(type.name)}
+                                >
+                                    {type.name}
+                                </button>
+                            )
+                        })
+                    }
+                </div>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <button onClick={() => console.log(pokemon.types)}>Consultar</button>
+                {/* <form>
                 Name:
                 <input
                     type="text"
@@ -49,6 +91,15 @@ const Add = () => {
                 />
                 <button type="submit">Create Pokemón</button>
             </form> */}
+            </div>
+            <div>
+                Tipos agregados:
+                {
+                    pokemon?.types?.map((type, index) => {
+                        return <p key={index}>{type}</p>
+                    })
+                }
+            </div>
         </div>
     );
 };
