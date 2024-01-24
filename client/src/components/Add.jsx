@@ -5,16 +5,52 @@ import { getTypes } from "../redux/actions";
 
 const Add = () => {
     const dispatch = useDispatch()
+
     const types = useSelector(state => state.types)
 
     const [pokemon, setPokemon] = useState({
         name: "",
+        life: 0,
+        strength: 0,
+        defense: 0,
+        speed: 0,
+        height: 0,
+        weight: 0,
         types: []
     })
 
     const click = (type) => {
-        if (!pokemon.types.includes(type)) return setPokemon({ types: [...pokemon.types, type] })
-        setPokemon({ types: pokemon.types.filter(r => r !== type) })
+        if (!pokemon.types.includes(type)) return setPokemon({
+            ...pokemon,
+            types: [...pokemon.types, type]
+        })
+
+        setPokemon({
+            ...pokemon,
+            types: pokemon.types.filter(r => r !== type)
+        })
+    }
+
+    const change = (input) => {
+        return setPokemon({
+            ...pokemon,
+            [input.target.name]: input.target.value
+        })
+    }
+
+    const add = async (pokemon) => {
+        // await dispatch()
+        console.log(pokemon)
+        setPokemon({
+            name: "",
+            life: 0,
+            strength: 0,
+            defense: 0,
+            speed: 0,
+            height: 0,
+            weight: 0,
+            types: []
+        })
     }
 
     useEffect(() => {
@@ -23,83 +59,56 @@ const Add = () => {
 
     return (
         <div style={{ textAlign: 'center' }}>
+            <p> Add your pokemon </p>
+            Name:
+            <input type="text" name="name" value={pokemon.name} onChange={change} />
+            <br />
+            Life:
+            <input type="number" name="life" value={pokemon.life} onChange={change} min={0} max={1000} />
+            <br />
+            Strength:
+            <input type="number" name="strength" value={pokemon.strength} onChange={change} min={0} max={1000} />
+            <br />
+            Defense:
+            <input type="number" name="defense" value={pokemon.defense} onChange={change} min={0} max={1000} />
+            <br />
+            Speed:
+            <input type="number" name="speed" value={pokemon.speed} onChange={change} min={0} max={1000} />
+            <br />
+            Height:
+            <input type="number" name="height" value={pokemon.height} onChange={change} min={0} max={1000} />
+            <br />
+            Weight:
+            <input type="number" name="weight" value={pokemon.weight} onChange={change} min={0} max={1000} />
+            <br />
+            <br />
+            <br />
+            Types:
+            <br />
+            <br />
             <div>
-                <p> Add your pokemon </p>
-                <br />
-                <br />
-                <label>Type</label>
-                <div>
-                    {
-                        types?.map((type, index) => {
-                            return (
-                                <button
-                                    key={index}
-                                    onClick={() => click(type.name)}
-                                >
-                                    {type.name}
-                                </button>
-                            )
-                        })
-                    }
-                </div>
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <button onClick={() => console.log(pokemon.types)}>Consultar</button>
-                {/* <form>
-                Name:
-                <input
-                    type="text"
-                    name="name"
-                />
-                Type:
-                <input
-                    type="text"
-                    name="name"
-                />
-                Life:
-                <input
-                    type="text"
-                    name="name"
-                />
-                Strength:
-                <input
-                    type="text"
-                    name="name"
-                />
-                Defense:
-                <input
-                    type="text"
-                    name="name"
-                />
-                Speed:
-                <input
-                    type="text"
-                    name="name"
-                />
-                Height:
-                <input
-                    type="text"
-                    name="name"
-                />
-                Weight:
-                <input
-                    type="text"
-                    name="name"
-                />
-                <button type="submit">Create Pokemón</button>
-            </form> */}
-            </div>
-            <div>
-                Tipos agregados:
                 {
-                    pokemon?.types?.map((type, index) => {
-                        return <p key={index}>{type}</p>
+                    types?.map((type, index) => {
+                        return (
+                            <button
+                                key={index}
+                                onClick={() => click(type.name)}
+                            >
+                                {type.name}
+                            </button>
+                        )
                     })
                 }
             </div>
+            <br />
+            <br />
+            <br />
+            <button onClick={() => console.log(pokemon)}>Consultar</button>
+            <br />
+            <br />
+            <button onClick={() => add(pokemon)}>
+                Crear
+            </button>
         </div>
     );
 };

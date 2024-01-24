@@ -7,10 +7,11 @@ const getTypes = async () => {
     api.data.results.map(async r => await Type.findOrCreate({
         where: { name: r.name }
     }))
-
-    return {
-        message: 'ok'
-    }
+    const data = await Type.findAll()
+    
+    return data.map(r => {
+        return { name: r.name }
+    })
 };
 
 module.exports = getTypes
