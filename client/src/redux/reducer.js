@@ -2,7 +2,8 @@ let initialState = {
   pokemons: [],
   detail: {},
   page: 1,
-  types: []
+  types: [],
+  message: {}
 };
 
 export function reducer(state = initialState, action) {
@@ -27,6 +28,11 @@ export function reducer(state = initialState, action) {
         ...state,
         types: action.payload,
       };
+      case 'LOAD_MESSAGE':
+        return {
+          ...state,
+          message: action.payload,
+        };
     default: return state;
   };
 };

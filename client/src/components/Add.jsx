@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 
-import { getTypes } from "../redux/actions";
+import { addPokemon, getTypes } from "../redux/actions";
 
 const Add = () => {
     const dispatch = useDispatch()
@@ -10,12 +10,13 @@ const Add = () => {
 
     const [pokemon, setPokemon] = useState({
         name: "",
-        life: 0,
+        hp: 0,
         strength: 0,
         defense: 0,
         speed: 0,
         height: 0,
         weight: 0,
+        attack: 0,
         types: []
     })
 
@@ -39,18 +40,18 @@ const Add = () => {
     }
 
     const add = async (pokemon) => {
-        // await dispatch()
-        console.log(pokemon)
-        setPokemon({
-            name: "",
-            life: 0,
-            strength: 0,
-            defense: 0,
-            speed: 0,
-            height: 0,
-            weight: 0,
-            types: []
-        })
+        await dispatch(addPokemon(pokemon))
+        // setPokemon({
+        //     name: "",
+        //     hp: 0,
+        //     strength: 0,
+        //     defense: 0,
+        //     speed: 0,
+        //     height: 0,
+        //     weight: 0,
+        //     attack: 0,
+        //     types: []
+        // })
     }
 
     useEffect(() => {
@@ -64,7 +65,7 @@ const Add = () => {
             <input type="text" name="name" value={pokemon.name} onChange={change} />
             <br />
             Life:
-            <input type="number" name="life" value={pokemon.life} onChange={change} min={0} max={1000} />
+            <input type="number" name="hp" value={pokemon.hp} onChange={change} min={0} max={1000} />
             <br />
             Strength:
             <input type="number" name="strength" value={pokemon.strength} onChange={change} min={0} max={1000} />
@@ -80,6 +81,9 @@ const Add = () => {
             <br />
             Weight:
             <input type="number" name="weight" value={pokemon.weight} onChange={change} min={0} max={1000} />
+            <br />
+            Attack:
+            <input type="number" name="attack" value={pokemon.attack} onChange={change} min={0} max={1000} />
             <br />
             <br />
             <br />

@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 
 const Option = ({ name }) => {
     const options = {
-        'Order': ['A-Z', 'Z-A', 'Mayor-Menor', 'Menor-Mayor'],
-        'Filters': ['Tipos', 'Existentes', 'Agregado']
+        'Order for': ['A-Z', 'Z-A', 'Major-Minor', 'Minor-Major'],
+        'Filters': ['Types', 'Existings', 'Aggregates']
     }
 
     const [active, setActive] = useState(false)
@@ -13,8 +13,10 @@ const Option = ({ name }) => {
     const click = state => setActive(state)
 
     const clickOutside = event => {
-        if (ref.current && !ref.current.contains(event.target)) setActive(false)
+        if (ref.current && !ref.current.contains(event.target))
+            setActive(false)
     }
+
     useEffect(() => {
         document.addEventListener("mousedown", clickOutside)
     })

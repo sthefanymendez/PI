@@ -52,11 +52,13 @@ export const getTypes = () => {
     };
 };
 
-// export const addPokemons = (addPokemon) => {
-//     return async function (dispatch) {
-//         return dispatch({
-//             type: 'ADD_POKEMON',
-//             payload: addPokemon
-//         })
-//     }
-// };
+export const addPokemon = (pokemon) => {
+    return async function (dispatch) {
+        const json = await axios.post('http://localhost:3001/pokemons', pokemon);
+
+        return dispatch({
+            type: 'LOAD_MESSAGE',
+            payload: json.data
+        })
+    }
+};

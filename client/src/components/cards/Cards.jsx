@@ -15,6 +15,8 @@ const Cards = () => {
     }, [dispatch, page])
 
     const pokemons = useSelector(state => state.pokemons)
+    
+    // console.log(pokemons)
 
     return (
         <div style={{ display: "flex", width: "100%", height: "85%", flexDirection: "column" }}>

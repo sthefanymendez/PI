@@ -52,9 +52,13 @@ const getPokemonsDatabase = async () => {
 
 const getPokemons = async (page) => {
     const api = await getPokemonsApi(page)
-    // const database = await getPokemonsDatabase()
 
-    // return [...api, ...database]
+    if (page === '4') {
+        console.log('pasó')
+        const database = await getPokemonsDatabase()
+        return [...api, ...database]
+    }
+
     return [...api]
 }
 
