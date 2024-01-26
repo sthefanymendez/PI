@@ -41,6 +41,7 @@ export const changePage = (page) => {
         })
     }
 };
+
 export const getTypes = () => {
     return async function (dispatch) {
         const json = await axios.get('http://localhost:3001/types');
@@ -59,6 +60,26 @@ export const addPokemon = (pokemon) => {
         return dispatch({
             type: 'LOAD_MESSAGE',
             payload: json.data
+        })
+    }
+};
+
+// export const setOrder = (arrange) => {
+//     return async function (dispatch) {
+//         const json = await axios.get('http://localhost:3001/pokemons'+ arrange);
+
+//         return dispatch({
+//             type: 'LOAD_ORDER',
+//             payload: json.data
+//         })
+//     }
+// };
+
+export const setOrder = (arrange) => {
+    return async function (dispatch) {
+        return dispatch({
+            type: 'LOAD_ORDER',
+            payload: arrange
         })
     }
 };

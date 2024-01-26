@@ -3,7 +3,8 @@ let initialState = {
   detail: {},
   page: 1,
   types: [],
-  message: {}
+  message: {},
+  order: ''
 };
 
 export function reducer(state = initialState, action) {
@@ -28,11 +29,16 @@ export function reducer(state = initialState, action) {
         ...state,
         types: action.payload,
       };
-      case 'LOAD_MESSAGE':
-        return {
-          ...state,
-          message: action.payload,
-        };
+    case 'LOAD_MESSAGE':
+      return {
+        ...state,
+        message: action.payload,
+      };
+    case 'LOAD_ORDER':
+      return {
+        ...state,
+        order: action.payload,
+      };
     default: return state;
   };
 };

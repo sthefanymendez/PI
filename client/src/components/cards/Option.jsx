@@ -1,9 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux"
+import { setOrder } from "../../redux/actions"
 
 const Option = ({ name }) => {
+    const dispatch = useDispatch()
+
     const options = {
-        'Order for': ['A-Z', 'Z-A', 'Major-Minor', 'Minor-Major'],
-        'Filters': ['Types', 'Existings', 'Aggregates']
+        order: [
+            { name: 'A-Z', action: setOrder },
+            { name: 'Z-A', action: setOrder },
+            { name: 'Rating: Major-Minor', action: setOrder },
+            { name: 'Rating: Minor-Major', action: setOrder },
+        ],
+        filters: [
+            { 'Types': '' },
+            { 'Existings': '' },
+            { 'Aggregates': '' },
+        ]
     }
 
     const [active, setActive] = useState(false)
@@ -19,6 +32,8 @@ const Option = ({ name }) => {
 
     useEffect(() => {
         document.addEventListener("mousedown", clickOutside)
+
+        return () => document.removeEventListener("mousedown", clickOutside)
     })
 
     return (
@@ -30,10 +45,10 @@ const Option = ({ name }) => {
                 active &&
                 <div ref={ref} style={{ width: "53px", height: "60px", background: "red", position: "absolute", top: "21px" }}>
                     {
-                        options[name].map((option, index) => {
+                        options[name].map(({ name, action }, index) => {
                             return (
-                                <button key={index}>
-                                    {option}
+                                <button key={index} onClick={() => dispatch(action(name))}>
+                                    {name}
                                 </button>
                             )
                         })
