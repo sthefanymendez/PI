@@ -12,21 +12,21 @@ const Z_A = (pokemons) => {
 
 const Asc = (pokemons) => {
     return pokemons.sort((a, b) => {
-        return b.rating - a.rating
+        return b.attack - a.attack
     })
 }
 
 const Desc = (pokemons) => {
     return pokemons.sort((a, b) => {
-        return a.rating - b.rating
+        return a.attack - b.attack
     })
 }
 
 const functions = {
     'A-Z':A_Z,
     'Z-A':Z_A,
-    'Rating: Major-Minor': Asc,
-    'Rating: Minor-Major': Desc,
+    'Attack: Max-Min': Asc,
+    'Attack: Min-Max': Desc
 }
 
 export const arrange = (order, pokemons) => {

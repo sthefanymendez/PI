@@ -21,6 +21,7 @@ const getPokemonsApi = async (page) => {
             id: pokemon.data.id,
             name: pokemon.data.name,
             image: pokemon.data.sprites.other.home.front_default,
+            attack: pokemon.data.stats[1].base_stat,
             types: pokemon.data.types.map(r => {
                 return { name: r.type.name }
             })
@@ -54,7 +55,6 @@ const getPokemons = async (page) => {
     const api = await getPokemonsApi(page)
 
     if (page === '4') {
-        console.log('pasó')
         const database = await getPokemonsDatabase()
         return [...api, ...database]
     }

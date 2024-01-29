@@ -1,21 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux"
-import { setOrder } from "../../redux/actions"
+import { setOrder, setFilter } from "../../redux/actions"
 
 const Option = ({ name }) => {
     const dispatch = useDispatch()
 
     const options = {
-        order: [
+        Order: [
             { name: 'A-Z', action: setOrder },
             { name: 'Z-A', action: setOrder },
-            { name: 'Rating: Major-Minor', action: setOrder },
-            { name: 'Rating: Minor-Major', action: setOrder },
+            { name: 'Attack: Max-Min', action: setOrder },
+            { name: 'Attack: Min-Max', action: setOrder },
         ],
-        filters: [
-            { 'Types': '' },
-            { 'Existings': '' },
-            { 'Aggregates': '' },
+        Filters: [
+            { name: 'fire', action: setFilter },
+            { name: 'Existings', action: setFilter },
+            { name: 'Aggregates', action: setFilter },
         ]
     }
 
@@ -26,8 +26,7 @@ const Option = ({ name }) => {
     const click = state => setActive(state)
 
     const clickOutside = event => {
-        if (ref.current && !ref.current.contains(event.target))
-            setActive(false)
+        if (ref.current && !ref.current.contains(event.target)) setActive(false)
     }
 
     useEffect(() => {
@@ -47,7 +46,7 @@ const Option = ({ name }) => {
                     {
                         options[name].map(({ name, action }, index) => {
                             return (
-                                <button key={index} onClick={() => dispatch(action(name))}>
+                                <button key={index}  onClick={() => dispatch(action(name))}>
                                     {name}
                                 </button>
                             )

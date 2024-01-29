@@ -64,22 +64,20 @@ export const addPokemon = (pokemon) => {
     }
 };
 
-// export const setOrder = (arrange) => {
-//     return async function (dispatch) {
-//         const json = await axios.get('http://localhost:3001/pokemons'+ arrange);
-
-//         return dispatch({
-//             type: 'LOAD_ORDER',
-//             payload: json.data
-//         })
-//     }
-// };
-
 export const setOrder = (arrange) => {
     return async function (dispatch) {
         return dispatch({
             type: 'LOAD_ORDER',
-            payload: arrange
+            payload: arrange,
+        })
+    }
+};
+
+export const setFilter = (filter) => {
+    return async function (dispatch) {
+        return dispatch({
+            type: 'LOAD_FILTER',
+            payload: filter
         })
     }
 };
