@@ -1,9 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux"
-import { setOrder, setFilter } from "../../redux/actions"
+import React, { useEffect, useRef, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { setOrder, setFilter, getTypes } from "../../redux/actions"
 
 const Option = ({ name }) => {
     const dispatch = useDispatch()
+
+    const types = useSelector(state => state.types)
 
     const options = {
         Order: [
@@ -13,7 +15,12 @@ const Option = ({ name }) => {
             { name: 'Attack: Min-Max', action: setOrder },
         ],
         Filters: [
-            { name: 'fire', action: setFilter },
+            ...types.map(r => {
+                return {
+                    name: r.name,
+                    action: setFilter
+                }
+            }),
             { name: 'Existings', action: setFilter },
             { name: 'Aggregates', action: setFilter },
         ]
@@ -26,14 +33,16 @@ const Option = ({ name }) => {
     const click = state => setActive(state)
 
     const clickOutside = event => {
-        if (ref.current && !ref.current.contains(event.target)) setActive(false)
+        if (ref.current && !ref.current.contains(event.target))
+            setActive(false)
     }
 
     useEffect(() => {
+        dispatch(getTypes())
         document.addEventListener("mousedown", clickOutside)
 
         return () => document.removeEventListener("mousedown", clickOutside)
-    })
+    }, [dispatch])
 
     return (
         <div style={{ position: "relative" }}>
@@ -46,7 +55,7 @@ const Option = ({ name }) => {
                     {
                         options[name].map(({ name, action }, index) => {
                             return (
-                                <button key={index}  onClick={() => dispatch(action(name))}>
+                                <button key={index} onClick={() => dispatch(action(name))}>
                                     {name}
                                 </button>
                             )

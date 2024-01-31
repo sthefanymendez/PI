@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { getPokemons } from "../../redux/actions";
 import Card from "./Card"
 import Option from "./Option";
-import  { arrange }  from "./orders";
-import { filterPokemons } from "./filters";
+import { arrange }  from "./orders";
+import { setFilter } from "./filters";
 
 const Cards = () => {
     const dispatch = useDispatch()
@@ -20,7 +20,7 @@ const Cards = () => {
     }, [dispatch, page])
 
     if (order) pokemons = arrange(order, pokemons)
-    if (filter) pokemons = filterPokemons(filter, pokemons)
+    if (filter) pokemons = setFilter(filter, pokemons)
 
     return (
         <div style={{ display: "flex", width: "100%", height: "85%", flexDirection: "column" }}>
