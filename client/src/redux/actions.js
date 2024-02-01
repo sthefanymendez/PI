@@ -45,7 +45,7 @@ export const changePage = (page) => {
 export const getTypes = () => {
     return async function (dispatch) {
         const json = await axios.get('http://localhost:3001/types');
-        
+
         return dispatch({
             type: 'LOAD_TYPES',
             payload: json.data
@@ -64,11 +64,21 @@ export const addPokemon = (pokemon) => {
     }
 };
 
-export const setOrder = (arrange) => {
+export const setOrder = (order, pokemons) => {
     return async function (dispatch) {
+        console.log(order)
+        // const orders = {
+        //     'A - Z': pokemons.sort((a, b) => a.name.localeCompare(b.name)),
+        //     'Z - A': pokemons.sort((a, b) => b.name.localeCompare(a.name)),
+        //     'Attack: Asc - Desc': pokemons.sort((a, b) => b.attack - a.attack),
+        //     'Attack: Desc - Asc': pokemons.sort((a, b) => a.attack - b.attack),
+        // }
+
+        const data = pokemons.sort((a, b) => a.name.localeCompare(b.name))
+
         return dispatch({
-            type: 'LOAD_ORDER',
-            payload: arrange,
+            type: 'LOAD_POKEMONS',
+            payload: data,
         })
     }
 };

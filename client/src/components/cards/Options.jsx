@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+
 import { setOrder, setFilter, getTypes } from "../../redux/actions"
 
-const Option = ({ name }) => {
+const Options = ({ name }) => {
     const dispatch = useDispatch()
 
     const types = useSelector(state => state.types)
+    const pokemons = useSelector(state => state.pokemons)
 
     const options = {
         Order: [
@@ -25,9 +27,9 @@ const Option = ({ name }) => {
             { name: 'Aggregates', action: setFilter },
         ]
     }
-
+    
     const [active, setActive] = useState(false)
-
+    
     const ref = useRef(null)
 
     const click = state => setActive(state)
@@ -39,23 +41,29 @@ const Option = ({ name }) => {
 
     useEffect(() => {
         dispatch(getTypes())
+        
         document.addEventListener("mousedown", clickOutside)
-
         return () => document.removeEventListener("mousedown", clickOutside)
     }, [dispatch])
 
     return (
         <div style={{ position: "relative" }}>
-            <button onClick={() => click(!active)}>
-                {name}
-            </button>
+            {
+                ["Order", "Filters"].map(element => {
+                    return (
+                        <button onClick={() => click(!active)}>
+                            {element}
+                        </button>
+                    )
+                })
+            }
             {
                 active &&
                 <div ref={ref} style={{ width: "53px", height: "60px", background: "red", position: "absolute", top: "21px" }}>
                     {
                         options[name].map(({ name, action }, index) => {
                             return (
-                                <button key={index} onClick={() => dispatch(action(name))}>
+                                <button key={index} onClick={() => dispatch(action(name, pokemons))}>
                                     {name}
                                 </button>
                             )
@@ -67,5 +75,4 @@ const Option = ({ name }) => {
     )
 }
 
-export default Option
-
+export default Options

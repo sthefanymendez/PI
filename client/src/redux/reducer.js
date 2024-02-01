@@ -4,7 +4,6 @@ let initialState = {
   page: 1,
   types: [],
   message: {},
-  order: '',
   filter: ''
 };
 
@@ -34,16 +33,6 @@ export function reducer(state = initialState, action) {
       return {
         ...state,
         message: action.payload,
-      };
-    case 'LOAD_ORDER':
-      return {
-        ...state,
-        order: action.payload,
-      };
-    case 'LOAD_FILTER':
-      return {
-        ...state,
-        filter: action.payload,
       };
     default: return state;
   };

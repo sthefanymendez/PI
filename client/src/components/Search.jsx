@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { queryPokemon } from "../../redux/actions"
+import { queryPokemon } from "../redux/actions"
 
 const Search = () => {
     const dispatch = useDispatch()

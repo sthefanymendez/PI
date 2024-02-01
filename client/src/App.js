@@ -1,7 +1,7 @@
 import { Route, Switch } from "react-router";
 
 import Landing from "./components/Landing";
-import Home from "./components/home/Home";
+import Home from "./components/Home";
 import Detail from "./components/Detail";
 import Add from "./components/Add";
 
@@ -15,7 +15,6 @@ function App() {
         <Route exact path='/add' component={Add} />
       </Switch>
     </>
-    // <div>hola</div>
   );
 };
 
