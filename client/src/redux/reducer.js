@@ -4,7 +4,7 @@ let initialState = {
   page: 1,
   types: [],
   message: {},
-  filter: ''
+  sort: ''
 };
 
 export function reducer(state = initialState, action) {
@@ -33,6 +33,11 @@ export function reducer(state = initialState, action) {
       return {
         ...state,
         message: action.payload,
+      };
+    case 'LOAD_SORT':
+      return {
+        ...state,
+        sort: action.payload,
       };
     default: return state;
   };

@@ -1,18 +1,14 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import { setOrder } from "../redux/actions"
+import { setSort } from "../redux/actions"
 
 const Orders = () => {
     const dispatch = useDispatch()
 
-    const pokemons = useSelector(state => state.pokemons)
 
-    const change = async event => {
-        event.preventDefault()
-        const option = event.target.value
-        
-        dispatch(setOrder(option, pokemons))
+    const change = event => {
+        dispatch(setSort(event.target.value))
     }
 
     return (

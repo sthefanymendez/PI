@@ -2,24 +2,28 @@ import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import { getPokemons } from "../../redux/actions";
-import Card from "./Card"
+import Card from "./Card";
+import { sorts } from "./sorts";
 
 const Cards = () => {
     const dispatch = useDispatch()
 
-    const pokemons = useSelector(state => state.pokemons)
+    let pokemons = useSelector(state => state.pokemons)
     const page = useSelector(state => state.page)
+    const sort = useSelector(state => state.sort)
 
     useEffect(() => {
         dispatch(getPokemons(page))
     }, [dispatch, page])
 
+    if (sort) pokemons = sorts(sort, pokemons)
+
     return (
         <div style={{ display: "flex", flexWrap: "wrap", width: "100%", height: "85%", alignItems: "center", justifyContent: "center"}}>
             {
-                pokemons?.length > 0 ?
-                pokemons.map((pokemon, index) => <Card pokemon={pokemon} key={index} />) :
-                <p>Loading...</p>
+                pokemons?
+                    pokemons.map((pokemon, index) => <Card pokemon={pokemon} key={index} />) :
+                    <p>Loading...</p>
             }
         </div>
     )

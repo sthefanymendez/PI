@@ -64,30 +64,11 @@ export const addPokemon = (pokemon) => {
     }
 };
 
-export const setOrder = (order, pokemons) => {
-    return async function (dispatch) {
-        console.log(order)
-        // const orders = {
-        //     'A - Z': pokemons.sort((a, b) => a.name.localeCompare(b.name)),
-        //     'Z - A': pokemons.sort((a, b) => b.name.localeCompare(a.name)),
-        //     'Attack: Asc - Desc': pokemons.sort((a, b) => b.attack - a.attack),
-        //     'Attack: Desc - Asc': pokemons.sort((a, b) => a.attack - b.attack),
-        // }
-
-        const data = pokemons.sort((a, b) => a.name.localeCompare(b.name))
-
-        return dispatch({
-            type: 'LOAD_POKEMONS',
-            payload: data,
-        })
-    }
-};
-
-export const setFilter = (filter) => {
+export const setSort = (sort) => {
     return async function (dispatch) {
         return dispatch({
-            type: 'LOAD_FILTER',
-            payload: filter
-        })
-    }
+            type: 'LOAD_SORT',
+            payload: sort
+        });
+    };
 };
