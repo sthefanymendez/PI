@@ -6,16 +6,12 @@ import Search from "./Search";
 import Pager from "./Pager";
 import Orders from "./Orders";
 import Filters from "./Filters";
-import { useHistory, useLocation } from "react-router-dom/cjs/react-router-dom";
 
-const Home = () => {
-    const location = useLocation()
-    const history = useHistory()
-
+const Home = (props) => {
+    console.log(props)
+    
     return (
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", height: "100%", justifyContent: "space-around" }}>
-            <button onClick={() => history.push('&hola=hola')}>agregar</button>
-            <button onClick={() => console.log({ location, history })}>agregar</button>
             <Search />
             <Link to='/add'>
                 <button>
@@ -23,7 +19,7 @@ const Home = () => {
                 </button>
             </Link>
             <Orders />
-            <div style={{ display: "flex" }}>
+            <div style={{ display: "flex", width: "95%" }}>
                 <Filters />
                 <Cards />
             </div>

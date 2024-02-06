@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTypes } from "../redux/actions";
+import Url from "./Url";
 
 const Filters = () => {
     const dispatch = useDispatch()
@@ -14,17 +15,7 @@ const Filters = () => {
         <div>
             <div>
                 <h3>Pokemon types</h3>
-                <ul>
-                    {
-                        types?.map((type, index) => {
-                            return (
-                                <li key={index}>
-                                    {type.name}
-                                </li>
-                            )
-                        })
-                    }
-                </ul>
+                <Url list={types} />
             </div>
             <div></div>
             {/* <div>
