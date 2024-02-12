@@ -44,7 +44,7 @@ export const changePage = (page) => {
 
 export const getTypes = () => {
     return async function (dispatch) {
-        const json = await axios.get('http://localhost:3001/types');
+        const json = await axios.get('http://localhost:3001/types')
 
         return dispatch({
             type: 'LOAD_TYPES',

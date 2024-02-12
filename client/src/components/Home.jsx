@@ -7,9 +7,7 @@ import Pager from "./Pager";
 import Orders from "./Orders";
 import Filters from "./Filters";
 
-const Home = (props) => {
-    console.log(props)
-    
+const Home = () => {
     return (
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", height: "100%", justifyContent: "space-around" }}>
             <Search />

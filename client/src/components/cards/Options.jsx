@@ -17,12 +17,12 @@ const Options = ({ name }) => {
             { name: 'Attack: Min-Max', action: setOrder },
         ],
         Filters: [
-            ...types.map(r => {
-                return {
-                    name: r.name,
-                    action: setFilter
-                }
-            }),
+            // ...types.map(r => {
+            //     return {
+            //         name: r.name,
+            //         action: setFilter
+            //     }
+            // }),
             { name: 'Existings', action: setFilter },
             { name: 'Aggregates', action: setFilter },
         ]
@@ -48,6 +48,7 @@ const Options = ({ name }) => {
 
     return (
         <div style={{ position: "relative" }}>
+            <button onClick={() => console.log(types)}>consultar</button>
             {
                 ["Order", "Filters"].map(element => {
                     return (

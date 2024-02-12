@@ -10,7 +10,7 @@ const getTypes = async () => {
     const data = await Type.findAll()
     
     return data.map(r => {
-        return { name: r.name }
+        return { name: r.name, state: false }
     })
 };
 
