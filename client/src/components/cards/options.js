@@ -1,5 +1,4 @@
-export const sorts = (sort, pokemons) => {
-    console.log(pokemons)
+export const setSort = (sort, pokemons) => {
     switch (sort) {
         case 'A - Z':
             return pokemons.sort((a, b) => {
@@ -18,5 +17,17 @@ export const sorts = (sort, pokemons) => {
                 return a.attack - b.attack
             })
         default: break;
+    }
+}
+
+export const setFilters = (filters, pokemons) => {
+    const data = []
+    
+    for (const pokemon of pokemons) {
+        for (const type of pokemon.types) {
+            if (filters.includes(type.name) && !data.includes(pokemon)) data.push(pokemon)
         }
+    }
+
+    return data
 }

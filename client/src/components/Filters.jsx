@@ -1,23 +1,13 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getTypes } from "../redux/actions";
+import React from "react";
 import Url from "./Url";
 
 const Filters = () => {
-    const dispatch = useDispatch()
-    const types = useSelector(state => state.types)
-
-    useEffect(() => {
-        dispatch(getTypes())
-    }, [dispatch])
-
     return (
         <div>
             <div>
                 <h3>Pokemon types</h3>
-                <Url list={types} />
+                <Url />
             </div>
-            <div></div>
             {/* <div>
                 <h3>Filters</h3>
                 <div>

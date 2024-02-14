@@ -39,6 +39,11 @@ export function reducer(state = initialState, action) {
         ...state,
         sort: action.payload,
       };
+    case 'SET_FILTERS':
+      return {
+        ...state,
+        types: action.payload,
+      };
     default: return state;
   };
 };

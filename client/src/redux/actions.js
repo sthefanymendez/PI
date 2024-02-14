@@ -72,3 +72,12 @@ export const setSort = (sort) => {
         });
     };
 };
+
+export const setFilter = (state) => {
+    return async function (dispatch) {
+        return dispatch({
+            type: 'STATE_FILTERS',
+            payload: state
+        })
+    }
+}
