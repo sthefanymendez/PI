@@ -80,4 +80,4 @@ export const setFilter = (state) => {
             payload: state
         })
     }
-}
+};

@@ -4,6 +4,7 @@ import Landing from "./components/Landing";
 import Home from "./components/Home";
 import Detail from "./components/Detail";
 import Add from "./components/Add";
+import Query from "./components/Query";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route exact path='/home' component={Home} />
         <Route exact path='/home/:idPokemon' component={Detail} />
         <Route exact path='/add' component={Add} />
+        <Route exact path='/query' component={Query} />
       </Switch>
     </>
   );

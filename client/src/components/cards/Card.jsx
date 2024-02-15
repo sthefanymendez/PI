@@ -3,6 +3,7 @@ import React from "react"
 const Card = ({ pokemon }) => {
     return (
         <div style={{display: "flex", flexDirection: "column", gap: "10px"}}>
+            <p>{pokemon.attack}</p>
             <img src={pokemon.image} alt="not found" width="100px" />
             <span>{pokemon.name}</span>
             {

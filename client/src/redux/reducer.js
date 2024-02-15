@@ -3,8 +3,7 @@ let initialState = {
   detail: {},
   page: 1,
   types: [],
-  message: {},
-  sort: ''
+  message: {}
 };
 
 export function reducer(state = initialState, action) {
@@ -37,9 +36,9 @@ export function reducer(state = initialState, action) {
     case 'LOAD_SORT':
       return {
         ...state,
-        sort: action.payload,
+        pokemons: action.payload,
       };
-    case 'SET_FILTERS':
+    case 'STATE_FILTERS':
       return {
         ...state,
         types: action.payload,
