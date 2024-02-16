@@ -3,7 +3,8 @@ let initialState = {
   detail: {},
   page: 1,
   types: [],
-  message: {}
+  message: {},
+  url: ''
 };
 
 export function reducer(state = initialState, action) {
@@ -42,6 +43,11 @@ export function reducer(state = initialState, action) {
       return {
         ...state,
         types: action.payload,
+      };
+    case 'SET_URL':
+      return {
+        ...state,
+        url: action.payload,
       };
     default: return state;
   };

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 
 import { getPokemons } from "../../redux/actions";
 import Card from "./Card";
@@ -8,6 +8,7 @@ import { setOrder, setFilters } from "./options";
 
 const Cards = () => {
     const dispatch = useDispatch()
+    const history = useHistory()
     const location = useLocation()
 
     const params = new URLSearchParams(location.search)
@@ -15,6 +16,7 @@ const Cards = () => {
     const order = params.get('order')
 
     let pokemons = useSelector(state => state.pokemons)
+    const url = useSelector(state => state.url)
     const page = useSelector(state => state.page)
 
     useEffect(() => {

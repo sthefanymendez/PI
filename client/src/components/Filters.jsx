@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
-import Query from "./Query";
 import { useDispatch, useSelector } from "react-redux";
 import { getTypes } from "../redux/actions";
-// import Url from "./Url";
 
-const Filters = () => {
+const Filters = ({ change }) => {
     const dispatch = useDispatch()
     const types = useSelector(state => state.types)
 
@@ -14,10 +12,21 @@ const Filters = () => {
 
     return (
         <div>
-            <div>
-                <h3>Pokemon types</h3>
-                <Query queryFilter={true} props={types} />
-            </div>
+            <h3>Pokemon types</h3>
+            <ul style={{ listStyle: "none" }}>
+                {
+                    types.map(({ name, state }, index) => {
+                        return (
+                            <li key={index}>
+                                <label>
+                                    <input type="checkbox" onChange={() => change('filters', name)} checked={state} />
+                                    {name}
+                                </label>
+                            </li>
+                        )
+                    })
+                }
+            </ul>
         </div>
     )
 }

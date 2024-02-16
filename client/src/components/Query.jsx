@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
+import Orders from './Orders';
+import Filters from './Filters';
+import { useDispatch } from 'react-redux';
+import { setURL } from '../redux/actions';
 
-function Query({ queryFilter, queryOrder, queryPage, props }) {
+function Query({ queryFilter, queryOrder, queryPage }) {
+    const dispatch = useDispatch()
     const [filters, setFilters] = useState([]);
     const [order, setOrder] = useState([]);
     const [page, setPage] = useState(1);
@@ -53,34 +58,20 @@ function Query({ queryFilter, queryOrder, queryPage, props }) {
         if (page > 0) {
             queries.push(`page=${page}`);
         }
-        return queries.length > 0 ? `?${queries.join('&')}` : '';
+        const query = queries.length > 0 ? `?${queries.join('&')}` : '';
+
+        dispatch(setURL('/home' + query))
     };
 
-    const query = generateQuery();
+    generateQuery()
 
     return (
         <>
-            <p>{query}</p>
             {
-                queryFilter &&
-                <ul style={{ listStyle: "none" }}>
-                    {
-                        props.map(({ name, state }, index) => {
-                            return (
-                                <li key={index}>
-                                    <label>
-                                        <input type="checkbox" onChange={() => handleCheckboxChange('filters', name)} checked={state} />
-                                        {name}
-                                    </label>
-                                </li>
-                            )
-                        })
-                    }
-                </ul>
+                queryFilter && <Filters change={handleCheckboxChange} />
             }
             {
-                queryOrder &&
-                <button onClick={() => handleCheckboxChange('order', 'asc')}>Ascendente</button>
+                queryOrder && <Orders change={handleCheckboxChange} />
             }
             {
                 queryPage &&

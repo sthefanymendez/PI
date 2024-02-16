@@ -81,3 +81,12 @@ export const setFilter = (state) => {
         })
     }
 };
+
+export const setURL = (url) => {
+    return async function (dispatch) {
+        return dispatch({
+            type: 'SET_URL',
+            payload: url
+        })
+    }
+};

@@ -4,24 +4,23 @@ import { Link } from "react-router-dom";
 import Cards from "./cards/Cards";
 import Search from "./Search";
 import Pager from "./Pager";
-import Orders from "./Orders";
-import Filters from "./Filters";
+import Query from "./Query";
 
 const Home = () => {
     return (
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", height: "100%", justifyContent: "space-around" }}>
-            <Search />
-            <Link to='/add'>
+            {/* <Search /> */}
+            {/* <Link to='/add'>
                 <button>
                     Add Pokemon
                 </button>
-            </Link>
-            <Orders />
+            </Link> */}
+            <Query queryOrder={true} />
             <div style={{ display: "flex", width: "95%" }}>
-                <Filters />
+                <Query queryFilter={true} />
                 <Cards />
             </div>
-            <Pager />
+            {/* <Pager /> */}
         </div>
     );
 };
