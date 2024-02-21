@@ -33,14 +33,14 @@ export const getDetail = (idPokemon) => {
     }
 };
 
-export const changePage = (page) => {
-    return async function (dispatch) {
-        return dispatch({
-            type: 'CHANGE_PAGE',
-            payload: page
-        })
-    }
-};
+// export const changePage = (page) => {
+//     return async function (dispatch) {
+//         return dispatch({
+//             type: 'CHANGE_PAGE',
+//             payload: page
+//         })
+//     }
+// };
 
 export const getTypes = () => {
     return async function (dispatch) {
@@ -64,29 +64,11 @@ export const addPokemon = (pokemon) => {
     }
 };
 
-export const setSort = (sort) => {
-    return async function (dispatch) {
-        return dispatch({
-            type: 'LOAD_SORT',
-            payload: sort
-        });
-    };
-};
-
-export const setFilter = (state) => {
-    return async function (dispatch) {
-        return dispatch({
-            type: 'STATE_FILTERS',
-            payload: state
-        })
-    }
-};
-
-export const setURL = (url) => {
-    return async function (dispatch) {
-        return dispatch({
-            type: 'SET_URL',
-            payload: url
-        })
-    }
-};
+// export const setTypesState = types => {
+//     return async function (dispatch) {
+//         return dispatch({
+//             type: 'LOAD_TYPES',
+//             payload: types
+//         })
+//     }
+// };

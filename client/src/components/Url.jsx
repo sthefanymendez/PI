@@ -1,50 +1,19 @@
-// import React, { useEffect, useState } from "react";
-// import { useHistory, useLocation } from "react-router-dom";
-// import { useDispatch, useSelector } from "react-redux"
-// import { getTypes, setFilter } from "../redux/actions";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
-// const Url = () => {
-//     const dispatch = useDispatch()
-//     const location = useLocation()
-//     const history = useHistory()
+import { getPokemons, getTypes } from "../redux/actions";
 
-    // const types = useSelector(state => state.types)
-    
-//     const [filters, setFilters] = useState([]);
+const Url = () => {
+    const dispatch = useDispatch()
 
-//     const handleCheckboxChange = (filter) => {
-//         const index = filters.indexOf(filter);
-//         if (index === -1) {
-//             setFilters([...filters, filter]);
-//         } else {
-//             const newFilters = [...filters];
-//             newFilters.splice(index, 1);
-//             setFilters(newFilters);
-//         }
-//     };
+    useEffect(() => {
+        dispatch(getPokemons(1))
+        dispatch(getTypes())
+    }, [
+        dispatch
+    ])
 
-//     const query = filters.length > 0 ? `?filters=${filters.join(',')}` : '';
+    return <></>
+}
 
-    // useEffect(() => {
-    //     dispatch(getTypes())
-    // }, [dispatch])
-
-//     return (
-        // <ul style={{ listStyle: "none" }}>
-        //     {
-        //         types.map(({ name, state }, index) => {
-        //             return (
-        //                 <li key={index}>
-        //                     <label>
-        //                         <input type="checkbox" name={name} onChange={() => handleCheckboxChange(name)} checked={state} />
-        //                         {name}
-        //                     </label>
-        //                 </li>
-        //             )
-        //         })
-        //     }
-        // </ul>
-//     )
-// }
-
-// export default Url
+export default Url

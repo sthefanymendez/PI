@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 
 import { addPokemon, getTypes } from "../redux/actions";
@@ -41,17 +41,6 @@ const Add = () => {
 
     const add = async (pokemon) => {
         await dispatch(addPokemon(pokemon))
-        // setPokemon({
-        //     name: "",
-        //     hp: 0,
-        //     strength: 0,
-        //     defense: 0,
-        //     speed: 0,
-        //     height: 0,
-        //     weight: 0,
-        //     attack: 0,
-        //     types: []
-        // })
     }
 
     useEffect(() => {
