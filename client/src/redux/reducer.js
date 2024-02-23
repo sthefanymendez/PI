@@ -17,11 +17,6 @@ export function reducer(state = initialState, action) {
         ...state,
         detail: action.payload,
       };
-    // case 'CHANGE_PAGE':
-    //   return {
-    //     ...state,
-    //     page: action.payload,
-    //   };
     case 'LOAD_TYPES':
       return {
         ...state,
@@ -35,18 +30,13 @@ export function reducer(state = initialState, action) {
     case 'LOAD_SORT':
       return {
         ...state,
+        sort: action.payload,
+      };
+    case 'SET_POKEMONS':
+      return {
+        ...state,
         pokemons: action.payload,
       };
-    // case 'STATE_FILTERS':
-    //   return {
-    //     ...state,
-    //     types: action.payload,
-    //   };
-    // case 'SET_URL':
-    //   return {
-    //     ...state,
-    //     url: action.payload,
-    //   };
     default: return state;
   };
 };

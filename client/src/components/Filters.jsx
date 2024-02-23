@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+
+import { getTypes } from "../redux/actions"
 
 const Filters = () => {
     const location = useLocation();
     const history = useHistory();
+    const dispatch = useDispatch();
+
     const types = useSelector(state => state.types)
 
     const [filters, setFilters] = useState([]);
 
     useEffect(() => {
+        dispatch(getTypes())
         const searchParams = new URLSearchParams(location.search);
         const currentFilters = searchParams.get('filters');
         setFilters(currentFilters ? currentFilters.split(',') : []);
-
         // Realizar alguna acción con los filtros, por ejemplo, aplicarlos a los datos.
-    }, [location.search]);
+    }, [dispatch, location.search]);
 
     const handleFilterChange = (filterName, isChecked) => {
         const updatedFilters = isChecked

@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-export const getPokemons = (page) => {
+export const getPokemons = ({ page }) => {
     return async function (dispatch) {
         const json = await axios.get('http://localhost:3001/pokemons?page=' + page);
 
