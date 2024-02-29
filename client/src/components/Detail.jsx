@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 
 import { getDetail } from "../redux/actions"
-
+import "./detail.css";
 
 const Detail = (props) => {
     const idPokemon = props.match.params.idPokemon
@@ -19,7 +19,7 @@ const Detail = (props) => {
         <div>
             <img src={detail.image} alt="not found" />
             <h2>{detail.name}</h2>
-            <div>
+            <div className="detail">
                 <p><strong>Attack:</strong> {detail.attack}</p>
                 <p><strong>HP:</strong> {detail.hp}</p>
                 <p><strong>Defense:</strong> {detail.defense}</p>
@@ -27,7 +27,7 @@ const Detail = (props) => {
                 <p><strong>Weight:</strong> {detail.weight}</p>
                 <p><strong>Height:</strong> {detail.height}</p>
             </div>
-            <div>
+            <div className="detail">
                 <strong>Types:</strong>
                 {
                     detail?.types?.map((type, index) => (

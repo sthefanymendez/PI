@@ -4,62 +4,64 @@ const Op = Sequelize.Op;
 
 const { Pokemon, Type } = require('../../db');
 
-const getPokemonsApi = async (page) => {
-    const pages = {
-        1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-        2: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24],
-        3: [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36],
-        4: [37, 38, 39, 40]
-    }
+const getPokemonsApi = async () => {
+    try {
+        const pokemons = []
 
-    const pokemons = []
+        for (let i = 1; i <= 40; i++) {
+            const pokemon = await axios.get('https://pokeapi.co/api/v2/pokemon/' + i)
 
-    for (let i = 0; i <= pages[page].length - 1; i++) {
-        const pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pages[page][i]}`)
-
-        pokemons.push({
-            id: pokemon.data.id,
-            name: pokemon.data.name,
-            image: pokemon.data.sprites.other.home.front_default,
-            attack: pokemon.data.stats[1].base_stat,
-            types: pokemon.data.types.map(r => {
-                return { name: r.type.name }
+            pokemons.push({
+                id: pokemon.data.id,
+                name: pokemon.data.name,
+                image: pokemon.data.sprites.other.home.front_default,
+                attack: pokemon.data.stats[1].base_stat,
+                types: pokemon.data.types.map(r => {
+                    return { name: r.type.name }
+                })
             })
-        })
-    }
+        }
 
-    return pokemons
+        return pokemons
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 const getPokemonsDatabase = async () => {
-    const pokemons = []
+    try {
 
-    const database = await Pokemon.findAll({
-        include: [
-            { model: Type, attributes: ["name"], through: { attributes: [] } }
-        ]
-    })
+        const pokemons = []
 
-    database.map(r => pokemons.push({
-        id: r.id,
-        name: r.name,
-        types: r.types.map(r => {
-            return { name: r.name }
+        const database = await Pokemon.findAll({
+            include: [
+                { model: Type, attributes: ["name"], through: { attributes: [] } }
+            ]
         })
-    }))
 
-    return pokemons
+        database.map(r => pokemons.push({
+            id: r.id,
+            name: r.name,
+            types: r.types.map(r => {
+                return { name: r.name }
+            })
+        }))
+
+        return pokemons
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 const getPokemons = async (page) => {
-    const api = await getPokemonsApi(page)
-
-    if (page === '4') {
+    try {
+        const api = await getPokemonsApi(page)
         const database = await getPokemonsDatabase()
-        return [...api, ...database]
-    }
 
-    return [...api]
+        return [...api, ...database]
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 const getPokemonApi = async (name) => {

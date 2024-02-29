@@ -1,19 +1,3 @@
-// import React from "react"
-
-// const Order = () => {
-//     return (
-//         <div>
-//             <select >
-// <option value="A - Z">A - Z</option>
-// <option value="Z - A">Z - A</option>
-// <option value="Rating: Asc - Desc">Rating: Asc - Desc</option>
-// <option value="Rating: Desc - Asc">Rating: Desc - Asc</option>
-//             </select>
-//         </div>
-//     )
-// }
-
-// export default Order
 import React, { useState, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 
@@ -52,8 +36,8 @@ const Order = () => {
                 <option value="">Default</option>
                 <option value="a-z">A - Z</option>
                 <option value="z-a">Z - A</option>
-                <option value="rating-asc-desc">Rating: Asc - Desc</option>
-                <option value="rating-desc-asc">Rating: Desc - Asc</option>
+                <option value="attack-asc-desc">Attack: Asc - Desc</option>
+                <option value="attack-desc-asc">Attack: Desc - Asc</option>
             </select>
         </div>
     );

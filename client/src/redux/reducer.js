@@ -1,4 +1,4 @@
-let initialState = {
+export let initialState = {
   pokemons: [],
   detail: {},
   types: [],

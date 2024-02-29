@@ -1,0 +1,9 @@
+.detail {
+    font-size: 14px;
+    line-height: 16px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}

@@ -7,10 +7,11 @@ import Search from "./Search";
 import Page from "./Page";
 import Filters from "./Filters";
 import Url from "./Url";
+import "./home.css";
 
 const Home = () => {
     return (
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", height: "100%", justifyContent: "space-between" }}>
+        <div className="home">
             <Url />
             <Search />
             <Order />
@@ -19,7 +20,7 @@ const Home = () => {
                     Add game
                 </button>
             </Link>
-            <div style={{ display: 'flex' }}>
+            <div className="home_filters">
                 <Filters />
                 <Cards />
             </div>
