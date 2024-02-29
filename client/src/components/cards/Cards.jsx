@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom"
 
 import Card from "./Card";
 import { getPokemons } from "../../redux/actions"
+import "../cards.css"
 
 const Cards = () => {
     const location = useLocation()
@@ -25,7 +26,7 @@ const Cards = () => {
         order
     ])
     return (
-        <div style={{ display: "flex", flexWrap: "wrap", width: "100%", height: "85%", alignItems: "center", justifyContent: "center"}}>
+        <div className="cards">
             {
                 pokemons ?
                 pokemons.map((pokemon, index) => <Card pokemon={pokemon} key={index} />) :

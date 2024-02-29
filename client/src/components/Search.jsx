@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { queryPokemon } from "../redux/actions"
+import "./search.css"
 
 const Search = () => {
     const dispatch = useDispatch()
@@ -19,9 +20,9 @@ const Search = () => {
     }
 
     return (
-        <div>
-            <input type="search" value={input} onChange={change} />
-            <button onClick={click}>
+        <div className="search">
+            <input value={input} onChange={change} className="search_input" />
+            <button onClick={click} className="search_button">
                 Search
             </button>
         </div>
