@@ -1,0 +1,14 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card:hover {
+    border-radius: 10px;
+    backdrop-filter: blur(20px);
+}
+
+.card_types {
+    
+}

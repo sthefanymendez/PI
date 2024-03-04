@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom"
 
 import Card from "./Card";
 import { getPokemons } from "../../redux/actions"
-import "../cards.css"
+import "./cards.css"
 
 const Cards = () => {
     const location = useLocation()

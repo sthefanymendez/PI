@@ -14,14 +14,14 @@ const Home = () => {
         <div className="home">
             <Url />
             <Search />
-            <Order />
+            {/* <Order /> */}
             <Link to='/add'>
                 <button>
                     Add game
                 </button>
             </Link>
             <div className="home_filters">
-                <Filters />
+                {/* <Filters /> */}
                 <Cards />
             </div>
             <Page />

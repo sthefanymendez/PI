@@ -27,7 +27,7 @@ const Detail = (props) => {
                 <p><strong>Weight:</strong> {detail.weight}</p>
                 <p><strong>Height:</strong> {detail.height}</p>
             </div>
-            <div className="detail">
+            <div className="detail_types">
                 <strong>Types:</strong>
                 {
                     detail?.types?.map((type, index) => (

@@ -26,7 +26,6 @@ const Page = () => {
 
   return (
     <div>
-      <p>Page Component</p>
       <button disabled={page === 1} onClick={() => handlePageChange(page - 1)}>
         {"<"}
       </button>
