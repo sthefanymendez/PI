@@ -13,18 +13,18 @@ const Home = () => {
     return (
         <div className="home">
             <Url />
-            <Search />
+            {/* <Search /> */}
             {/* <Order /> */}
             <Link to='/add'>
-                <button>
+                {/* <button>
                     Add game
-                </button>
+                </button> */}
             </Link>
             <div className="home_filters">
-                {/* <Filters /> */}
-                <Cards />
+               {/* <Filters /> */}
+               {/* <Cards /> */}
             </div>
-            <Page />
+            {/* <Page /> */}
         </div>
     );
 };
