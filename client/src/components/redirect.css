@@ -1,0 +1,27 @@
+.redirect {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    font-family: "Inters", sans-serif;
+    align-content: space-around;
+    justify-content: flex-end;
+}
+
+.redirect_link {
+    text-align: left;
+    font-size: 18px;
+    color: rgb(255, 255, 255);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    height: fit-content;
+    text-decoration: none;
+    margin: 0px;
+}
+
+.redirect_line {
+    background: rgb(255, 255, 255);
+    height: 2px;
+    margin-top: 3px;
+    width: 100%;
+}
