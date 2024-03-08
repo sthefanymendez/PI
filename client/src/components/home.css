@@ -7,8 +7,14 @@
 }
 
 
+.home_head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 30%;
+}
+
 .home_body {
     display: flex;
-    padding: 5px 0px 0px 30px ;
-    margin: 20px 50px 0px 50px ;
 }
+

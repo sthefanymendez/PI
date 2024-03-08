@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux"
+import "./filters.css";
 
 import { getTypes } from "../redux/actions"
 
@@ -39,7 +40,7 @@ const Filters = () => {
     };
 
     return (
-        <div>
+        <div className='filters'>
             {
                 types.map((filter) => (
                     <div key={filter.name}>

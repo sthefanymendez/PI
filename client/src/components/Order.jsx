@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
+import "./order.css"
 
 const Order = () => {
     const location = useLocation();
@@ -30,7 +31,7 @@ const Order = () => {
     };
 
     return (
-        <div>
+        <div className='order'>
             <select value={order} onChange={(e) => handleOrderChange(e.target.value)}>
                 <option value="">Default</option>
                 <option value="a-z">A - Z</option>
