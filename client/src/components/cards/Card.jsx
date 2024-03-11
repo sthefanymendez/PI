@@ -46,9 +46,11 @@ const typeImages = {
 const Card = ({ pokemon }) => {
     return (
         <div className="card">
-            <p>{pokemon.attack}</p>
             <img src={pokemon.image} alt="not found" width="100px" />
             <span>{pokemon.name}  </span>
+            <div>
+                <p>{pokemon.attack}</p>
+            </div>
             
             <div className="card_types">
                 {pokemon.types.map((type, index) => <img src={typeImages[type.name]} alt="not found" key={index} />)}

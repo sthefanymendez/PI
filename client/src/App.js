@@ -8,6 +8,7 @@ import Add from "./components/Add";
 function App() {
   return (
     <>
+      <background />
       <Switch>
         <Route exact path='/' component={Landing} />
         <Route exact path='/home' component={Home} />
